@@ -110,7 +110,13 @@ Split distribution:
 | Validation | 30 | 15 | 11 | 4 |
 | Test | 30 | 14 | 12 | 4 |
 
+Sample classifications from the fine-tuned model:
 
+| True label | Predicted label | Confidence | Example | Why the label is correct |
+|-|-|-:|-|-|
+| `supported_analysis` | `supported_analysis` | 0.80 | **Post title:** Show HN: Clippy – 90s UI for local LLMs<br><br>**Comment:** This is cool, but does no one even look at what libraries they're shipping anymore? I mean, why does this Clippy-style LLM interface bundle: - A JavaScript implementation of the Jinja templating language - A full GitHub API client - A library that takes a string and tells you if it's a valid npm package name - A useless shim for the JavaScript Math module And 119 other libraries? This thing would have taken up 10% of the maximum disk space available on a Windows 95 FAT16 volume. | The comment makes a concrete critique supported by specific examples of bundled dependencies and a size comparison. |
+| `firsthand_report` | `firsthand_report` | 0.51 | **Post title:** Building a fully local LLM voice assistant to control my smart home<br><br>**Comment:** I did the same thing, but I went the easy way and used OpenAI's API. Half way through, I got fed up with all the boilerplate, so I wrote a really simple (but very Pythonic) wrapper around function calling with Python functions: https://github.com/skorokithakis/ez-openai Then my assistant is just a bunch of Python functions and a prompt. Very very simple. I used an ESP32-Box with the excellent Willow project for the local speech recognition and generation: https://github.com/toverainc/willow | The comment is grounded in the author's direct implementation experience and includes concrete details about tools used. |
+| `hot_takes` | `hot_takes` | 0.88 | **Post title:** Show HN: I built a tiny LLM to demystify how language models work<br><br>**Comment:** Love it! I think it's important to understand how the tools we use (and will only increasingly use) work under the hood. | The comment is a positive reaction and broad judgment without enough supporting detail to evaluate the claim. |
 
 ## Evaluation
 
@@ -123,7 +129,7 @@ Headline comparison:
 | Model | Accuracy |
 |-|-:|
 | Zero-shot baseline (Groq) | 0.567 |
-| Fine-tuned DistilBERT | 0.633 |
+| Fine-tuned DistilBERT (2nd run) | 0.633 |
 
 Fine-tuning improved overall accuracy by 0.067, or 6.7 percentage points.
 
