@@ -206,6 +206,8 @@ Fine-tuning improved overall accuracy by 0.067, or 6.7 percentage points. Howeve
 
 ### Groq Baseline Performance
 
+Groq was given a few learning examples (see Appendix) and then asked to do clasification on the test samples. 
+
 ```text
 Baseline accuracy: 0.567  (evaluated on 30/30 parseable responses)
 
@@ -447,4 +449,36 @@ Post title: A small number of samples can poison LLMs of any size
 Comment: I don't think this can scale to really large models (300B+ params), especially once you add a little bit of RL for "common sense"/adversarial scenarios.
 True:      hot_takes
 Predicted: supported_analysis  (confidence: 0.99)
+```
+
+## Appendix - Prompt used with Groq
+
+```
+SYSTEM_PROMPT = """
+You are classifying comments from Hacker News.
+Assign each comments to exactly one of the following categories.
+
+supported_analysis: The comment makes a substantive claim supported by reasoning, technical detail, causal explanation, data, comparison, or concrete examples.
+Example: "Post title: Learning to Reason with LLMs
+
+Comment: The model performance is driven by chain of thought, but they will not be providing chain of thought responses to the user for various reasons including competitive advantage. After the release of GPT4 it became very common to fine-tune non-OpenAI models on GPT4 output. I’d say OpenAI is rightly concerned that fine-tuning on chain of thought responses from this model would allow for quicker reproduction of their results. This forces everyone else to reproduce it the hard way. It’s sad news for open weight models but an understandable decision"
+
+firsthand_report: The comment's main support is the author's direct experience using, building, evaluating, managing, or working around AI/LLM tools.
+Example: "Post title: Llamafile lets you distribute and run LLMs with a single file
+
+Comment: Extremely cool and Justine Tunney / jart does incredible portability work [0], but I'm kind of struggling with the use-cases for this one. I make a small macOS app [1] which runs llama.cpp with a SwiftUI front-end. For the first version of the app I was obsessed with the single download -> chat flow and making 0 network connections. I bundled a model with the app and you could just download, open, and start using it. Easy! But as soon as I wanted to release a UI update to my TestFlight beta testers, I was causing them to download another 3GB. All 3 users complained :). My first change after that was decoupling the default model download and the UI so that I can ship app updates that are about 5MB. It feels like someone using this tool is going to hit the same problem pretty quick when they want to get the latest llama.cpp updates (ggerganov SHIIIIPS [2]). Maybe there are cases where that doesn't matter, would love to hear where people think this could be useful."
+
+hot_takes: The comment mainly asserts a judgment, prediction, critique, endorsement, worry, joke, or reaction without enough support to evaluate the claim.
+Example: "Post title: LLM Inevitabilism
+
+Comment: If in 2009 you claimed that the dominance of the smartphone was inevitable, it would have been because you were using one and understood its power, not because you were reframing away our free choice for some agenda. In 2025 I don't think you can really be taking advantage of AI to do real work and still see its mass adaptation as evitable. It's coming faster and harder than any tech in history. As scary as that is we can't wish it away."
+
+Respond with ONLY the label name.
+Do not explain your reasoning.
+
+Valid labels:
+supported_analysis
+firsthand_report
+hot_takes
+"""
 ```
