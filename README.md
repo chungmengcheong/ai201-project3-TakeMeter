@@ -63,21 +63,65 @@ Some edge cases mattered a lot:
 
 ### Label Examples and Difficult Cases
 
-`supported_analysis`
-| Clear example | Difficult case |
-|-|-|
-| **Post title:** Learning to Reason with LLMs<br><br>**Comment:** The model performance is driven by chain of thought, but they will not be providing chain of thought responses to the user for various reasons including competitive advantage. After the release of GPT4 it became very common to fine-tune non-OpenAI models on GPT4 output. I’d say OpenAI is rightly concerned that fine-tuning on chain of thought responses from this model would allow for quicker reproduction of their results. This forces everyone else to reproduce it the hard way. It’s sad news for open weight models but an understandable decision. | **Post title:** Asking 60 LLMs a set of 20 questions<br><br>**Comment:** You should add what version of the model you are testing For example you mention Jon Durbin Airoboros L2 70B But is it 1.4? 2.0? 2.1? Etc.<br><br>**Decision:** labeled `supported_analysis` because this is a concrete methodology critique, even though it is short. |
+**Clear example: supported_analysis**
 
- `firsthand_report` 
-| Clear example | Difficult case |
-|-|-|
-| **Post title:** Llamafile lets you distribute and run LLMs with a single file<br><br>**Comment:** Extremely cool and Justine Tunney / jart does incredible portability work [0], but I'm kind of struggling with the use-cases for this one. I make a small macOS app [1] which runs llama.cpp with a SwiftUI front-end. For the first version of the app I was obsessed with the single download -> chat flow and making 0 network connections. I bundled a model with the app and you could just download, open, and start using it. Easy! But as soon as I wanted to release a UI update to my TestFlight beta testers, I was causing them to download another 3GB. All 3 users complained :). My first change after that was decoupling the default model download and the UI so that I can ship app updates that are about 5MB. | **Post title:** I genuinely don't understand why some people are still bullish about LLMs<br><br>**Comment:** We've had the opposite experience, especially with o3-mini using Deep Research for market research & topic deep-dive tasks. The sources that are pulled have never been 404 for us, and typically have been highly relevant to the search prompt. It's been a huge time-saver. We are just scratching the surface of how good these LLMs will become at research tasks.<br><br>**Decision:** labeled `firsthand_report` because the main support is direct reported use, despite the broad final claim. |
+```text
+Post title: Learning to Reason with LLMs
 
+Comment: The model performance is driven by chain of thought, but they will not be providing chain of thought responses to the user for various reasons including competitive advantage. After the release of GPT4 it became very common to fine-tune non-OpenAI models on GPT4 output. I’d say OpenAI is rightly concerned that fine-tuning on chain of thought responses from this model would allow for quicker reproduction of their results. This forces everyone else to reproduce it the hard way. It’s sad news for open weight models but an understandable decision.
+True:      supported_analysis
+Reason for decision: The comment makes a substantive claim and supports it with a causal explanation about chain-of-thought release incentives, model replication, and competitive advantage.
+```
 
-`hot_takes` 
-| Clear example | Difficult case |
-|-|-|
-| **Post title:** LLM Inevitabilism<br><br>**Comment:** If in 2009 you claimed that the dominance of the smartphone was inevitable, it would have been because you were using one and understood its power, not because you were reframing away our free choice for some agenda. In 2025 I don't think you can really be taking advantage of AI to do real work and still see its mass adaptation as evitable. It's coming faster and harder than any tech in history. As scary as that is we can't wish it away. | **Post title:** A small number of samples can poison LLMs of any size<br><br>**Comment:** I don't think this can scale to really large models (300B+ params), especially once you add a little bit of RL for "common sense"/adversarial scenarios.<br><br>**Decision:** labeled `hot_takes` because the technical vocabulary is not backed by an explanation of mechanism. |
+**Difficult case: supported_analysis**
+
+```text
+Post title: Asking 60 LLMs a set of 20 questions
+
+Comment: You should add what version of the model you are testing For example you mention Jon Durbin Airoboros L2 70B But is it 1.4? 2.0? 2.1? Etc.
+True:      supported_analysis
+Reason for decision: This was labeled supported_analysis because it is a concrete methodology critique, even though it is short and phrased as a suggestion.
+```
+
+**Clear example: firsthand_report**
+
+```text
+Post title: Llamafile lets you distribute and run LLMs with a single file
+
+Comment: Extremely cool and Justine Tunney / jart does incredible portability work [0], but I'm kind of struggling with the use-cases for this one. I make a small macOS app [1] which runs llama.cpp with a SwiftUI front-end. For the first version of the app I was obsessed with the single download -> chat flow and making 0 network connections. I bundled a model with the app and you could just download, open, and start using it. Easy! But as soon as I wanted to release a UI update to my TestFlight beta testers, I was causing them to download another 3GB. All 3 users complained :). My first change after that was decoupling the default model download and the UI so that I can ship app updates that are about 5MB.
+True:      firsthand_report
+Reason for decision: The comment's main support is the author's direct experience building and shipping a local LLM app.
+```
+
+**Difficult case: firsthand_report**
+
+```text
+Post title: I genuinely don't understand why some people are still bullish about LLMs
+
+Comment: We've had the opposite experience, especially with o3-mini using Deep Research for market research & topic deep-dive tasks. The sources that are pulled have never been 404 for us, and typically have been highly relevant to the search prompt. It's been a huge time-saver. We are just scratching the surface of how good these LLMs will become at research tasks.
+True:      firsthand_report
+Reason for decision: This was labeled firsthand_report because the main support is direct reported use, despite the broad final claim.
+```
+
+**Clear example: hot_takes**
+
+```text
+Post title: LLM Inevitabilism
+
+Comment: If in 2009 you claimed that the dominance of the smartphone was inevitable, it would have been because you were using one and understood its power, not because you were reframing away our free choice for some agenda. In 2025 I don't think you can really be taking advantage of AI to do real work and still see its mass adaptation as evitable. It's coming faster and harder than any tech in history. As scary as that is we can't wish it away.
+True:      hot_takes
+Reason for decision: The comment makes a broad prediction and judgment about AI adoption without enough concrete support to evaluate the claim.
+```
+
+**Difficult case: hot_takes**
+
+```text
+Post title: A small number of samples can poison LLMs of any size
+
+Comment: I don't think this can scale to really large models (300B+ params), especially once you add a little bit of RL for "common sense"/adversarial scenarios.
+True:      hot_takes
+Reason for decision: This was labeled hot_takes because the technical vocabulary is not backed by an explanation of mechanism.
+```
 
 ### Final label distribution:
 
@@ -112,11 +156,38 @@ Split distribution:
 
 Sample classifications from the fine-tuned model:
 
-| True label | Predicted label | Confidence | Example | Why the label is correct |
-|-|-|-:|-|-|
-| `supported_analysis` | `supported_analysis` | 0.80 | **Post title:** Show HN: Clippy – 90s UI for local LLMs<br><br>**Comment:** This is cool, but does no one even look at what libraries they're shipping anymore? I mean, why does this Clippy-style LLM interface bundle: - A JavaScript implementation of the Jinja templating language - A full GitHub API client - A library that takes a string and tells you if it's a valid npm package name - A useless shim for the JavaScript Math module And 119 other libraries? This thing would have taken up 10% of the maximum disk space available on a Windows 95 FAT16 volume. | The comment makes a concrete critique supported by specific examples of bundled dependencies and a size comparison. |
-| `firsthand_report` | `firsthand_report` | 0.51 | **Post title:** Building a fully local LLM voice assistant to control my smart home<br><br>**Comment:** I did the same thing, but I went the easy way and used OpenAI's API. Half way through, I got fed up with all the boilerplate, so I wrote a really simple (but very Pythonic) wrapper around function calling with Python functions: https://github.com/skorokithakis/ez-openai Then my assistant is just a bunch of Python functions and a prompt. Very very simple. I used an ESP32-Box with the excellent Willow project for the local speech recognition and generation: https://github.com/toverainc/willow | The comment is grounded in the author's direct implementation experience and includes concrete details about tools used. |
-| `hot_takes` | `hot_takes` | 0.88 | **Post title:** Show HN: I built a tiny LLM to demystify how language models work<br><br>**Comment:** Love it! I think it's important to understand how the tools we use (and will only increasingly use) work under the hood. | The comment is a positive reaction and broad judgment without enough supporting detail to evaluate the claim. |
+**Example: supported_analysis**
+
+```text
+Post title: Show HN: Clippy – 90s UI for local LLMs
+
+Comment: This is cool, but does no one even look at what libraries they're shipping anymore? I mean, why does this Clippy-style LLM interface bundle: - A JavaScript implementation of the Jinja templating language - A full GitHub API client - A library that takes a string and tells you if it's a valid npm package name - A useless shim for the JavaScript Math module And 119 other libraries? This thing would have taken up 10% of the maximum disk space available on a Windows 95 FAT16 volume.
+True:      supported_analysis
+Predicted: supported_analysis  (confidence: 0.80)
+Reason for decision: The comment makes a concrete critique supported by specific examples of bundled dependencies and a size comparison.
+```
+
+**Example: firsthand_report**
+
+```text
+Post title: Building a fully local LLM voice assistant to control my smart home
+
+Comment: I did the same thing, but I went the easy way and used OpenAI's API. Half way through, I got fed up with all the boilerplate, so I wrote a really simple (but very Pythonic) wrapper around function calling with Python functions: https://github.com/skorokithakis/ez-openai Then my assistant is just a bunch of Python functions and a prompt. Very very simple. I used an ESP32-Box with the excellent Willow project for the local speech recognition and generation: https://github.com/toverainc/willow
+True:      firsthand_report
+Predicted: firsthand_report  (confidence: 0.51)
+Reason for decision: The comment is grounded in the author's direct implementation experience and includes concrete details about tools used.
+```
+
+**Example: hot_takes**
+
+```text
+Post title: Show HN: I built a tiny LLM to demystify how language models work
+
+Comment: Love it! I think it's important to understand how the tools we use (and will only increasingly use) work under the hood.
+True:      hot_takes
+Predicted: hot_takes  (confidence: 0.88)
+Reason for decision: The comment is a positive reaction and broad judgment without enough supporting detail to evaluate the claim.
+```
 
 ## Evaluation
 
@@ -124,14 +195,14 @@ Sample classifications from the fine-tuned model:
 
 Both models were evaluated on the same 30-example held-out test set. I report overall accuracy plus per-class precision, recall, and F1. Accuracy gives the simple overall hit rate, but the per-class metrics matter because the labels are not evenly distributed and a model could look acceptable overall while failing one discourse category.
 
-Headline comparison:
+## Headline comparison:
 
 | Model | Accuracy |
 |-|-:|
 | Zero-shot baseline (Groq) | 0.567 |
 | Fine-tuned DistilBERT (2nd run) | 0.633 |
 
-Fine-tuning improved overall accuracy by 0.067, or 6.7 percentage points.
+Fine-tuning improved overall accuracy by 0.067, or 6.7 percentage points. However I would caution that given the sample test sample of 30 examples, this is the difference of predicting 2 more test examples correctly.  
 
 ### Groq Baseline Performance
 
